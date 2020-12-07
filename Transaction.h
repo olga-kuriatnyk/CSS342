@@ -16,8 +16,6 @@ public:
 	//Transaction(char transaction_type, int fund_id);  //for History
 	~Transaction(); 
 
-	// I DONT KNOW IF THIS WORKS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 	char getTransactionType() const;
 	string getFirstName() const;
 	string getLastName() const;
