@@ -14,7 +14,9 @@ public:
 	Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id); //for Transfer
 	Transaction(char trns_type, int account_id);  //for History
 	//Transaction(char transaction_type, int fund_id);  //for History
-	~Transaction();
+	~Transaction(); 
+
+	// I DONT KNOW IF THIS WORKS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	char getTransactionType() const;
 	string getFirstName() const;
