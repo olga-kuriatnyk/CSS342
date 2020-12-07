@@ -19,9 +19,7 @@ int main()
     Transaction trans(chr, ln, fn, account);
 
     cout << trans << endl;
-    
 
 
-    return 0;
     std::cout << "Hello World!\n";
 }
