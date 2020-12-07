@@ -1,0 +1,12 @@
+﻿  Account.cpp
+C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Account.cpp(13,28): warning C4552: '<': result of expression not used
+  Bank.cpp
+  BSTree.cpp
+  Fund.cpp
+C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Fund.cpp(40,20): warning C4018: '<': signed/unsigned mismatch
+  TheJollyBanker.cpp
+  Transaction.cpp
+C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Transaction.cpp(92,85): error C3867: 'Transaction::getFundID': non-standard syntax; use '&' to create a pointer to member
+C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Transaction.cpp(92,148): error C3867: 'Transaction::getTransferAccountID': non-standard syntax; use '&' to create a pointer to member
+C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Transaction.cpp(92,174): error C3867: 'Transaction::getTransferFundID': non-standard syntax; use '&' to create a pointer to member
+  Generating Code...
