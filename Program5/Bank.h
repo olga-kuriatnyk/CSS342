@@ -1,8 +1,7 @@
 #pragma once
 #include <queue>
 #include "BSTree.h"
-#include "Transaction.h"
-#include "BSTree.h" 
+//#include "Transaction.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -11,6 +10,8 @@
 
 class Bank
 {
+    //friend ostream& operator<<(ostream& out, const Bank& bank); 
+
 public:
     Bank();
     void ReadTransactionsFromTheFile();
@@ -19,7 +20,7 @@ public:
     //operator overload << //Display 
 
 private:
-    queue<Transaction> transactions_list_;
-    BSTree accounts_list_;
+    queue<Transaction> transactions_list;
+    BSTree accounts_list;
 };
 

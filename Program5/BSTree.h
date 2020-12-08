@@ -8,13 +8,14 @@ public:
 //	BSTree(const BSTree& bst);
 	~BSTree();
 
-	int get_count();
-	bool is_empty();
 	bool Insert(Account* account_ptr);
 	bool Retrieve(int acct_number, Account* account_ptr);
 	//bool Remove(int acct_number);
 
 	void Empty();
+
+	int get_count();
+	bool is_empty();
 
 	BSTree operator=(const BSTree& bst);
 
