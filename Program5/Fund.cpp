@@ -14,12 +14,12 @@ int Fund::getBalance() const
 	return balance_;
 }
 
-void Fund::depositAmount(int add_amount)
+void Fund::depositAmountFund(int add_amount)
 {
 	balance_ += add_amount;
 }
 
-bool Fund::withdrawAmount(int withdraw_amount)
+bool Fund::withdrawAmountFund(int withdraw_amount)
 {
 	if (balanceCheck(withdraw_amount))
 	{
@@ -30,7 +30,7 @@ bool Fund::withdrawAmount(int withdraw_amount)
 	return false;
 }
 
-void Fund::recordTransaction(Transaction transaction)
+void Fund::recordFundTransaction(Transaction transaction)
 {
 	history.push_back(transaction);
 }
