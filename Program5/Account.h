@@ -6,6 +6,8 @@
 #include <array>
 using namespace std;
 
+const int FUND_MAX = 10;
+
 const int MONEY_MARKET = 0;
 const int PRIME_MONEY_MARKET = 1;
 const int LONG_TERM_BOND = 2;
@@ -35,15 +37,14 @@ public:
 
 	string getFundName(int fund_id) const;
 
-	bool operator>(const Account& account) const;
+	bool operator>(const Account& account) const; // TODO: so the BSTree can compare account_id to store them 
 	bool operator<(const Account& account) const;
-	// TODO: implement operators overload ><, so the BSTree can compare account_id to store them 
+
 
 private:
 	string first_name_, last_name_;
 	int account_id_, fund_id_;
-	//vector<Fund> funds;
-	Fund funds[10];
+	Fund funds[FUND_MAX];
 
 	//void error(int amount, string first_name, string last_name, int fund_id);
 	//void withdrawFromSimilarAccountsFaild(int primary_fund, int amount);

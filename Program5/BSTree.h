@@ -17,11 +17,11 @@ public:
 	//bool Remove(int acct_number);
 
 	void Empty();
+	bool is_empty() const;
 
-	int get_count();
-	bool is_empty();
-
-	BSTree operator=(const BSTree& bst);
+	// DO I NEED THIS? 
+	//int get_count() const;
+	//BSTree operator=(const BSTree& bst);
 	
 private:
 	struct Node 
@@ -31,6 +31,9 @@ private:
 		Node* left_;
 	};
 	Node* root_;
+
+	bool RecursiveInsert(Node* current, Account* insert);
+
 };
 #include "BSTree.h"
 #endif
