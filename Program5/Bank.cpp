@@ -12,7 +12,7 @@ void Bank::ReadTransactionsFromTheFile()
 	string readLine;
 	if (!in)
 	{
-		cout << "Cannot Open!" << endl;
+		cout << "CANNOT OPEN THE FILE" << endl;
 	}
 	while (!in.eof())
 	{
@@ -44,7 +44,7 @@ void Bank::ReadTransactionsFromTheFile()
 		}
 		else
 		{
-			cout << "Unknown transaction type" << endl;
+			cout << "UNKNOWN TRANSACTION TYPE" << endl;
 		}
 	}
 
