@@ -15,12 +15,12 @@ Transaction::Transaction(char trns_type, string last_name, string first_name, in
 	this->account_id_ = account_id;
 }
 
-Transaction::Transaction(char trns_type, int account_id, int fund_id, int amoun)
+Transaction::Transaction(char trns_type, int account_id, int fund_id, int amount)
 {
 	this->trns_type_ = trns_type;
 	this->account_id_ = account_id;
 	this->fund_id_ = fund_id;
-	this->amount_ = amoun;
+	this->amount_ = amount;
 }
 Transaction::Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id)
 {
