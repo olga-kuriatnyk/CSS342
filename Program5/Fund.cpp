@@ -49,6 +49,11 @@ void Fund::setFundName(string fund_name)
 	this->fund_name_ = fund_name;
 }
 
+string Fund::getFundName() const
+{
+	return fund_name_;
+}
+
 bool Fund::balanceCheck(int withdraw_amount)
 {
 	if (balance_ >= withdraw_amount)

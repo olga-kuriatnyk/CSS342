@@ -14,10 +14,13 @@ public:
 
     void depositAmount(int add_amount);
     bool withdrawAmount(int withdraw_amount);
+    bool balanceCheck(int withdraw_amount);
+
     void recordTransaction(Transaction transaction);
     void printHistoryOfFund();
-    void setFundName(string fund_name);
 
+    void setFundName(string fund_name);
+    string getFundName() const;
     int getBalance() const;
 
 private:
@@ -25,6 +28,5 @@ private:
     int balance_ = 0;
     vector<Transaction> history; //store faild transactions in history of a fund 
 
-    bool balanceCheck(int withdraw_amount);
 };
 
