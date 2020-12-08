@@ -15,7 +15,7 @@ class Bank
 public:
     Bank();
     void ReadTransactionsFromTheFile();
-    void ProcesTransactions(); 
+    void ProcesTransactions(); // TODO: implement 'T', 'H'
 
     //operator overload << //Display 
 
