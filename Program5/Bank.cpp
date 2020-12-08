@@ -76,18 +76,33 @@ void Bank::ProcesTransactions()
 			Account* account = new Account(front_trns.getFirstName(), front_trns.getLastName(), front_trns.getAccountID());
 			accounts_list.Insert(account);
 		}
-		else if (front_trns.getTransactionType() == 'D') // TODO: implement 
+
+		else if (front_trns.getTransactionType() == 'D') // TODO: test
 		{
 			int account_id = front_trns.getAccountID();
 			int fund_id = front_trns.getFundID();
-			int ammount_to_deposit = front_trns.getAmount();
-			Account* account;
-		
+			int deposit_amount = front_trns.getAmount();
+			Account* account = NULL;
+			if (accounts_list.Retrieve(account_id, account))
+			{
+				account->depositAmount(fund_id, deposit_amount);
+				account->recordTransaction(front_trns, fund_id);
+			}		
+			// TODO: ERROR message that account_id is not found? 
 		}
-		else if (front_trns.getTransactionType() == 'W') // TODO: implement 
-		{
 
+		else if (front_trns.getTransactionType() == 'W') // TODO: test 
+		{
+			int account_id = front_trns.getAccountID();
+			int fund_id = front_trns.getFundID();
+			int withdraw_amount = front_trns.getAmount();
+			Account* account = NULL;
+			if (accounts_list.Retrieve(account_id, account))
+			{
+				account->withdrawAmount(fund_id, withdraw_amount, front_trns);
+			}
 		}
+
 		else if (front_trns.getTransactionType() == 'T') // TODO: implement 
 		{
 
