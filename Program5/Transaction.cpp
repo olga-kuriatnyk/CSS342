@@ -38,6 +38,26 @@ Transaction::Transaction(char trns_type, int account_id)
 	this->account_id_ = account_id;
 }
 
+Transaction::Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id, string fail)
+{
+	this->trns_type_ = trns_type;
+	this->account_id_ = account_id;
+	this->fund_id_ = fund_id;
+	this->amount_ = amount;
+	this->transfer_account_id_ = transfer_account_id;
+	this->transfer_fund_id_ = transfer_fund_id;
+	this->fail_ = fail;
+}
+
+Transaction::Transaction(char trns_type, int account_id, int fund_id, int amount, string fail)
+{
+	this->trns_type_ = trns_type;
+	this->account_id_ = account_id;
+	this->fund_id_ = fund_id;
+	this->amount_ = amount;
+	this->fail_ = fail;
+}
+
 char Transaction::getTransactionType() const
 {
 	return trns_type_;
@@ -50,7 +70,7 @@ string Transaction::getFirstName() const
 
 string Transaction::getLastName() const
 {
-	return last_name_; 
+	return last_name_;
 }
 
 int Transaction::getAccountID() const
@@ -78,21 +98,45 @@ int Transaction::getAmount() const
 	return amount_;
 }
 
+bool Transaction::isFailed() const
+{
+	if (fail_.empty())
+	{
+		return false;
+	}
+	return true;
+}
+
 ostream& operator<<(ostream& out, const Transaction& trns)
 {
-	if ((trns.getTransactionType() == 'D') || (trns.getTransactionType() == 'W'))
+	if (!trns.isFailed())
 	{
-		cout << trns.getTransactionType() << " " << trns.getAccountID() << trns.getFundID() << " " << trns.getAmount() << endl;
+		if ((trns.getTransactionType() == 'D') || (trns.getTransactionType() == 'W'))
+		{
+			cout << trns.getTransactionType() << " " << trns.getAccountID() << trns.getFundID() << " " << trns.getAmount() << endl;
+		}
+		else if (trns.getTransactionType() == 'T')
+		{
+			cout << trns.getTransactionType() << " " << trns.getAccountID() << trns.getFundID() << " " << trns.getAmount() << " " << trns.getTransferAccountID() << trns.getTransferFundID() << endl;
+		}
+		// TODO: delete before submiting. we don't need to store Open transaction in the history, so no need to print it 
+		else if (trns.getTransactionType() == 'O')
+		{
+			cout << trns.getTransactionType() << " " << trns.getLastName() << " " << trns.getFirstName() << " " << trns.getAccountID() << endl;
+		}
 	}
-	else if (trns.getTransactionType() == 'O')
+	else
 	{
-		cout << trns.getTransactionType() << " " << trns.getLastName() << " " << trns.getFirstName() << " " << trns.getAccountID() << endl;
+		if (trns.getTransactionType() == 'W')
+		{
+			cout << trns.getTransactionType() << " " << trns.getAccountID() << trns.getFundID() << " " << trns.getAmount() << " (Failed)" << endl;
+		}
+		if (trns.getTransactionType() == 'T')
+		{
+			cout << trns.getTransactionType() << " " << trns.getAccountID() << trns.getFundID() << " " << trns.getAmount() << " " << trns.getTransferAccountID() << trns.getTransferFundID() << " (Failed)" << endl;
+		}
+
 	}
-	else if (trns.getTransactionType() == 'T')
-	{
-		cout << trns.getTransactionType() << " " << trns.getAccountID() << trns.getFundID() << " " << trns.getAmount() << " " << trns.getTransferAccountID() << trns.getTransferFundID() << endl;
-	}
-	//else if (trns.getTransactionType() == 'H') {} // TODO: question: do we need to store the History transaction in our history? 
 
 	return out;
 }

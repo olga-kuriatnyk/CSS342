@@ -27,6 +27,15 @@ int main()
     Transaction trans2(chr2, account, fund, amount);
     cout << trans2 << endl;
 
+    int transfer_account_id = 4321;
+    int transfer_fund_id = 9;
+    string fail = "fail";
+
+
+    Transaction trans3(chr3, account, fund, amount, transfer_account_id, transfer_fund_id, fail);
+    cout << trans3 << endl;
+    Transaction trans4(chr4, account, fund, amount, fail);
+    cout << trans4 << endl;
 
 
     std::cout << "Hello World!\n";

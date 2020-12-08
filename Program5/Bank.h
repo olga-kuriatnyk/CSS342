@@ -13,7 +13,7 @@ class Bank
 {
 public:
     Bank();
-    bool ReadTransactionsFromTheFile();
+    void ReadTransactionsFromTheFile();
     void ProcesTransactions(); 
 
     //operator overload << //Display 

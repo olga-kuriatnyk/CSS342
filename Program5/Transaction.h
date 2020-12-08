@@ -16,7 +16,9 @@ public:
 	Transaction(char trns_type, int account_id);  //for History
 	//Transaction(char transaction_type, int account_id, int fund_id);  //for History
 
-	//Transaction(char trns_type, int account_id, int fund_id, );
+	//These Construtors create a transaction that failed to process
+	Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id, string fail);
+	Transaction(char trns_type, int account_id, int fund_id, int amount, string fail);
 
 	char getTransactionType() const;
 	string getFirstName() const;
@@ -27,11 +29,13 @@ public:
 	int getTransferFundID() const;
 	int getAmount() const;
 
-	// bool isFailed(); // executed_copectly_function 
+	bool isFailed() const; // executed_copectly_function 
 
 private:
 	string first_name_, last_name_;
 	char trns_type_;
 	int account_id_, fund_id_, amount_, transfer_account_id_, transfer_fund_id_;
+
+	string fail_;
 };
 
