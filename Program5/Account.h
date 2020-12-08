@@ -2,7 +2,8 @@
 #include "Transaction.h"
 #include "Fund.h" 
 #include <string>
-#include <vector>
+//#include <vector>
+#include <array>
 using namespace std;
 
 const int MONEY_MARKET = 0;
@@ -19,13 +20,11 @@ public:
 
 	void depositAmount(int fund_id, int amount);
 	bool withdrawAmount(int fund_id, int amount, Transaction trns); 
-	void withdrawFromSimilarAccoutns(int primary_fund, int secondary_fund, int amount);
-	//void withdrawFromSimilarAccountsFaild(int primary_fund, int amount);
-	void faild_withdraw(int fund, int amount);
 	void recordTransaction(Transaction trns, int fund_id);
 
-	void printAccountHistory() const; // by fund
-	void printFundHistory(int fund_id) const;
+	void printAccountHistory() const; // by fund // TODO: implement
+
+	//void printFundHistory(int fund_id) const;
 
 	string getFirstName() const;
 	string getLastName() const;
@@ -36,15 +35,22 @@ public:
 
 	string getFundName(int fund_id) const;
 
-	// print history of account. from instructor notes: "Transaction History for FN LN by fund."
-
+	bool operator>(const Account& account) const;
+	bool operator<(const Account& account) const;
 	// TODO: implement operators overload ><, so the BSTree can compare account_id to store them 
 
 private:
 	string first_name_, last_name_;
 	int account_id_, fund_id_;
-	vector<Fund> funds;
+	//vector<Fund> funds;
+	Fund funds[10];
 
-	void error(int amount, string first_name, string last_name, int fund_id);
+	//void error(int amount, string first_name, string last_name, int fund_id);
+	//void withdrawFromSimilarAccountsFaild(int primary_fund, int amount);
+
+	void withdrawFromSimilarAccoutns(int primary_fund, int secondary_fund, int amount);
+	void faild_withdraw(int fund, int amount);
+
+
 };
 
