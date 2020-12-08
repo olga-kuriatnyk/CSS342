@@ -22,15 +22,14 @@ int main()
     int fund = 1;
     int amount = 1000;
 
-    Transaction trans(chr, ln, fn, account);
-    cout << trans << endl;
-    Transaction trans2(chr2, account, fund, amount);
-    cout << trans2 << endl;
-
     int transfer_account_id = 4321;
     int transfer_fund_id = 9;
     string fail = "fail";
 
+    Transaction trans(chr, ln, fn, account);
+    cout << trans << endl;
+    Transaction trans2(chr2, account, fund, amount);
+    cout << trans2 << endl;
 
     Transaction trans3(chr3, account, fund, amount, transfer_account_id, transfer_fund_id, fail);
     cout << trans3 << endl;
