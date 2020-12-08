@@ -1,2 +1,12 @@
-﻿  Transaction.cpp
-  TheJollyBanker.vcxproj -> C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Program5\Debug\TheJollyBanker.exe
+﻿  Account.cpp
+C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Program5\Account.cpp(13,28): warning C4552: '<': result of expression not used
+  Bank.cpp
+C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Program5\Bank.cpp(84,13): warning C4101: 'account': unreferenced local variable
+  BSTree.cpp
+  Fund.cpp
+C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Program5\Fund.cpp(40,20): warning C4018: '<': signed/unsigned mismatch
+  TheJollyBanker.cpp
+  Transaction.cpp
+  Generating Code...
+Bank.obj : error LNK2019: unresolved external symbol "public: bool __thiscall BSTree::Insert(class Account *)" (?Insert@BSTree@@QAE_NPAVAccount@@@Z) referenced in function "public: void __thiscall Bank::ProcesTransactions(void)" (?ProcesTransactions@Bank@@QAEXXZ)
+C:\Users\olgak\OneDrive\Personal\Documents\GitHub\CSS342\Program5\Debug\TheJollyBanker.exe : fatal error LNK1120: 1 unresolved externals
