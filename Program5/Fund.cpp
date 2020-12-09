@@ -35,12 +35,27 @@ void Fund::recordFundTransaction(Transaction transaction)
 	history.push_back(transaction);
 }
 
-void Fund::printHistoryOfFund()
+void Fund::printHistoryOfFund() const
 {
 	for (int i = 0; i < history.size(); i++)
 	{
-		cout << history[i] << endl;
-		//cout << " " << history[i]; 
+		cout << "  " << history[i];
+	}
+}
+
+void Fund::printHistory() const
+{
+	if (history.size() == 0)
+	{
+		return;
+	}
+	else
+	{
+		cout << fund_name_ << ": $" << balance_ << endl;
+		for (int i = 0; i < history.size(); i++)
+		{
+			cout << "  " << history[i];
+		}
 	}
 }
 

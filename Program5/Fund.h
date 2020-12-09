@@ -17,7 +17,8 @@ public:
     bool balanceCheck(int withdraw_amount);
 
     void recordFundTransaction(Transaction transaction);
-    void printHistoryOfFund();
+    void printHistoryOfFund() const;
+    void printHistory() const;
 
     void setFundName(string fund_name);
     string getFundName() const;
