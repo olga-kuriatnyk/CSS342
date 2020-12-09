@@ -15,6 +15,8 @@ const int SHORT_TERM_BOND = 3;
 
 class Account
 {
+	friend ostream& operator << (ostream& out, Account& account);
+
 public:
 	Account();
 	Account(string first_name, string last_name, int account_id);
@@ -25,8 +27,7 @@ public:
 	void recordTransaction(Transaction trns, int fund_id);
 
 	void printAccountHistory() const; // by fund // TODO: implement
-
-	//void printFundHistory(int fund_id) const;
+	void printFundHistory(int fund_id) const; // for specified fund TODO: implement
 
 	string getFirstName() const;
 	string getLastName() const;

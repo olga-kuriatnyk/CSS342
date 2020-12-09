@@ -167,13 +167,21 @@ void Account::recordTransaction(Transaction trns, int fund_id)
 	funds[fund_id].recordFundTransaction(trns);
 }
 
-void Account::printAccountHistory() const // TODO: implement
+void Account::printAccountHistory() const
 {
-	cout << "Transaction History for " << first_name_ << " " << last_name_ << " " << " by fund." << endl;
-	for (int i = 0; i < 10; i++) // 10 = funds.size()
-	{
-		//funds[i].();
+	cout << "Transaction History for " << first_name_ << " " << last_name_ << " by fund." << endl;
+	for (int i = 0; i < 10; i++) // TODO: 10 = funds.size()
+	{ 
+			//cout << funds[i].getFundName() << ": $" << funds[i].getBalance() << endl;
+			funds[i].printHistory();
 	}
+	//cout << endl;
+}
+
+void Account::printFundHistory(int fund_id) const
+{
+	cout << "Transaction History for " << first_name_ << " " << last_name_ << " " << getFundName(fund_id) << ": $" << getBalance(fund_id) << endl;
+	funds[fund_id].printHistoryOfFund();
 }
 
 int Account::getAccountID() const
@@ -223,4 +231,15 @@ bool Account::operator>(const Account& account) const
 bool Account::operator<(const Account& account) const
 {
 	return !(*this > account);
+}
+
+ostream& operator<<(ostream& out, Account& account)
+{
+	out << account.getFirstName() << " " << account.getLastName() << " Account ID: " << account.getAccountID() << endl;
+	for (int i = 0; i < 10; i++)
+	{
+		out << "    " << account.getFundName(i) << ": $" << account.getBalance(i) << endl;
+	}
+	//cout << "\n";
+	return out;
 }
