@@ -38,12 +38,12 @@ Transaction::Transaction(char trns_type, int account_id)
 	this->account_id_ = account_id;
 }
 
-Transaction::Transaction(char trns_type, int account_id, int fund_id)
-{
-	this->trns_type_ = trns_type;
-	this->account_id_ = account_id;
-	this->fund_id_ = fund_id;
-}
+//Transaction::Transaction(char trns_type, int account_id, int fund_id)
+//{
+//	this->trns_type_ = trns_type;
+//	this->account_id_ = account_id;
+//	this->fund_id_ = fund_id;
+//}
 
 Transaction::Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id, string fail)
 {
