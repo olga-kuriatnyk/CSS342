@@ -38,13 +38,6 @@ Transaction::Transaction(char trns_type, int account_id)
 	this->account_id_ = account_id;
 }
 
-//Transaction::Transaction(char trns_type, int account_id, int fund_id)
-//{
-//	this->trns_type_ = trns_type;
-//	this->account_id_ = account_id;
-//	this->fund_id_ = fund_id;
-//}
-
 Transaction::Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id, string fail)
 {
 	this->trns_type_ = trns_type;
@@ -125,11 +118,6 @@ ostream& operator<<(ostream& out, const Transaction& trns)
 		else if (trns.getTransactionType() == 'T')
 		{
 			cout << trns.getTransactionType() << " " << trns.getAccountID() << trns.getFundID() << " " << trns.getAmount() << " " << trns.getTransferAccountID() << trns.getTransferFundID() << endl;
-		}
-		// TODO: delete before submiting. we don't need to store Open transaction in the history, so no need to print it 
-		else if (trns.getTransactionType() == 'O')
-		{
-			cout << trns.getTransactionType() << " " << trns.getLastName() << " " << trns.getFirstName() << " " << trns.getAccountID() << endl;
 		}
 	}
 	else

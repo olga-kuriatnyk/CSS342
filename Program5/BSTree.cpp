@@ -40,37 +40,6 @@ bool BSTree::Insert(Account* account_ptr)
 	return false;
 }
 
-//bool BSTree::Retrieve(const int& account_id, Account*& account_ptr) const
-//{
-//	Node* current = root_;
-//	bool search = false;
-//
-//	while (!search)
-//	{
-//		if ((current != NULL) && (account_id == current->account_ptr_->getAccountID())) //found the account_id 
-//		{
-//			search = true;
-//			account_ptr = current->account_ptr_;
-//			return search;
-//		}
-//		else if ((current != NULL) && (account_id > current->account_ptr_->getAccountID()))
-//		{
-//			current = current->right_;
-//		}
-//		else if ((current != NULL) && (account_id < current->account_ptr_->getAccountID()))
-//		{
-//			current = current->left_;
-//		}
-//		//else
-//		//{
-//		//	search = true;
-//		//}
-//	}
-//
-//	cout << "ERROR: Account Number " << account_id << " not found." << endl;
-//	return search;
-//}
-
 bool BSTree::Retrieve(const int& account_id, Account*& account_ptr) const
 {
 	Node* current = root_;
@@ -94,7 +63,6 @@ bool BSTree::Retrieve(const int& account_id, Account*& account_ptr) const
 		}
 	}
 
-	//cout << "ERROR: Account Number " << account_id << " not found." << endl;
 	return false;
 }
 

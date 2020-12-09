@@ -1,7 +1,5 @@
 #include "Account.h"
 
-//#include <array>
-
 Account::Account()
 {
 	first_name_ = "";
@@ -17,9 +15,9 @@ Account::Account(string first_name, string last_name, int account_id)
 	this->first_name_ = first_name;
 	this->last_name_ = last_name;
 	this->account_id_ = account_id;
-	string fundNames[] = { "Money Market", "Prime Money Market","Long-Term Bond",
-		"Short-Term Bond","500 Index Fund", "Capital Value Fund","Growth Equity Fund",
-		"Growth Index Fund","Value Fund", "Value Stock Index" };
+	string fundNames[] = { "Money Market", "Prime Money Market","Long-Term Bond", "Short-Term Bond",
+		"500 Index Fund", "Capital Value Fund","Growth Equity Fund", "Growth Index Fund","Value Fund", 
+		"Value Stock Index" };
 	for (int i = 0; i < 10; i < i++)
 	{
 		funds[i].setFundName(fundNames[i]);
@@ -147,18 +145,10 @@ void Account::withdrawFromSimilarAccoutns(int primary_fund, int secondary_fund, 
 	funds[secondary_fund].recordFundTransaction(trns2);
 }
 
-// withdrawFromSimilarAccountsFaild() function is use for linked accounts when the total balance < ammount
-//void Account::withdrawFromSimilarAccountsFaild(int primary_fund, int amount)
-//{
-//	cout << "ERROR: Not Enough Funds to withdraw " << amount << " from " << getFirstName() << " " << getLastName() << " " << getFundName(primary_fund) << endl;
-//	Transaction trns('W', getAccountID(), primary_fund, amount);
-//	funds[primary_fund].recordTransaction(trns);
-//}
-
 void Account::faild_withdraw(int fund, int amount)
 {
 	cout << "ERROR: Not Enough Funds to withdraw " << amount << " from " << getFirstName() << " " << getLastName() << " " << getFundName(fund) << endl;
-	Transaction trns('W', getAccountID(), fund, amount, "(Failed)"); //create failed transactoin to record
+	Transaction trns('W', getAccountID(), fund, amount, "(Failed)"); // failed transactoin for the record
 	funds[fund].recordFundTransaction(trns);
 }
 
@@ -170,12 +160,10 @@ void Account::recordTransaction(Transaction trns, int fund_id)
 void Account::printAccountHistory() const
 {
 	cout << "Transaction History for " << first_name_ << " " << last_name_ << " by fund." << endl;
-	for (int i = 0; i < 10; i++) // TODO: 10 = funds.size()
+	for (int i = 0; i < FUND_MAX; i++)
 	{ 
-			//cout << funds[i].getFundName() << ": $" << funds[i].getBalance() << endl;
 			funds[i].printHistory();
 	}
-	//cout << endl;
 }
 
 void Account::printFundHistory(int fund_id) const
@@ -240,6 +228,5 @@ ostream& operator<<(ostream& out, Account& account)
 	{
 		out << "    " << account.getFundName(i) << ": $" << account.getBalance(i) << endl;
 	}
-	//cout << "\n";
 	return out;
 }

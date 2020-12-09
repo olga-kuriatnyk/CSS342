@@ -196,10 +196,3 @@ void Bank::Display() const
 	accounts_list.Display();
 }
 
-//ostream& operator<<(ostream& out, const Bank& bank)
-//{
-//	cout << "\nProcessing Done. Final Balances" << endl;
-//	cout << accounts_list.Display();
-//
-//	return out;
-//}

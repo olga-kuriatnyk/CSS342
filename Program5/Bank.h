@@ -10,7 +10,7 @@
 
 class Bank
 {
-    //friend ostream& operator<<(ostream& out, const Bank& bank); //Display 
+  //  friend ostream& operator<<(ostream& out, const Bank& bank); //Display 
 
 public:
     Bank();

@@ -7,16 +7,11 @@ class BSTree
 {
 public:
 	BSTree();
-//	BSTree(const BSTree& bst);
 	~BSTree();
 
 	bool Insert(Account* account_ptr);
 	bool Retrieve(const int& account_id, Account*& account_ptr) const;
 	void Display() const;
-
-	//bool Remove(int acct_number);
-
-	//bool Retrieve(int acct_number, Account* account_ptr);
 
 	void Empty();
 	bool is_empty() const;

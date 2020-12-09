@@ -26,8 +26,8 @@ public:
 	bool withdrawAmount(int fund_id, int amount, Transaction trns); 
 	void recordTransaction(Transaction trns, int fund_id);
 
-	void printAccountHistory() const; // by fund // TODO: implement
-	void printFundHistory(int fund_id) const; // for specified fund TODO: implement
+	void printAccountHistory() const; 
+	void printFundHistory(int fund_id) const; 
 
 	string getFirstName() const;
 	string getLastName() const;
@@ -47,12 +47,7 @@ private:
 	int account_id_, fund_id_;
 	Fund funds[FUND_MAX];
 
-	//void error(int amount, string first_name, string last_name, int fund_id);
-	//void withdrawFromSimilarAccountsFaild(int primary_fund, int amount);
-
 	void withdrawFromSimilarAccoutns(int primary_fund, int secondary_fund, int amount);
 	void faild_withdraw(int fund, int amount);
-
-
 };
 

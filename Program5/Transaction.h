@@ -5,7 +5,7 @@ using namespace std;
 
 class Transaction
 {
-	friend ostream& operator<<(ostream& out, const Transaction& trns); // TODO: implement for transwer and history 
+	friend ostream& operator<<(ostream& out, const Transaction& trns); 
 
 public:
 	Transaction();
@@ -14,7 +14,6 @@ public:
 	Transaction(char trns_type, int account_id, int fund_id, int amount);  //for Deposit and Withdraw
 	Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id); //for Transfer
 	Transaction(char trns_type, int account_id);  //for account History
-//	Transaction(char trns_type, int account_id, int fund_id);  //for fund History
 
 	//These Construtors create a transaction that failed to process
 	Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id, string fail);
