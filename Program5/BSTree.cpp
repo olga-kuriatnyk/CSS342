@@ -16,13 +16,13 @@ BSTree::~BSTree()
 bool BSTree::Insert(Account* account_ptr)
 {
 	int insert_account_id = account_ptr->getAccountID();
-	if (insert_account_id < 1000 || insert_account_id > 9999)
+	if (insert_account_id < 1000 || insert_account_id > 9999) // account_id is not valid
 	{
 		cout << "ERROR: Account Number Not Valid" << endl;
 		return false;
 	}
 
-	if (root_ == NULL)
+	if (root_ == NULL) // when tree is empty 
 	{
 		root_ = new Node;
 		root_->account_ptr_ = account_ptr;
@@ -34,7 +34,7 @@ bool BSTree::Insert(Account* account_ptr)
 	else
 	{
 		Node* current = root_;
-		// TODO: implement Recursive Insert ? 
+		RecursiveInsert(current, account_ptr); // finds the right plane for the Node
 
 	}
 	return false;
@@ -94,8 +94,18 @@ bool BSTree::Retrieve(const int& account_id, Account*& account_ptr) const
 		}
 	}
 
-	cout << "ERROR: Account Number " << account_id << " not found." << endl;
+	//cout << "ERROR: Account Number " << account_id << " not found." << endl;
 	return false;
+}
+
+void BSTree::Display() const
+{
+	if (root_ == NULL)
+	{
+		cout << "ERROR: ACCOUNT LIST IS EMPTY" << endl;
+		return;
+	}
+	RecursivePrint(root_);
 }
 
 void BSTree::Empty() // TODO: test
@@ -113,17 +123,24 @@ bool BSTree::is_empty() const
 	return false;
 }
 
+// RecursiveInsert() is a recursive function that finds the right plane for the Node in the tree
+// if the account_is already opent print the Error message 
 bool BSTree::RecursiveInsert(Node* current, Account* insert)
 {
 	if (insert->getAccountID() > current->account_ptr_->getAccountID())
 	{
 		if (current->right_ == NULL) // found the place
 		{
-
+			Node* insert_in_tree = new Node();
+			insert_in_tree->account_ptr_ = insert;
+			insert_in_tree->left_ = NULL;
+			insert_in_tree->right_ = NULL;
+			current->right_ = insert_in_tree;
+			return true;
 		}
 		else
 		{
-
+			return RecursiveInsert(current->right_, insert);
 		}
 	}
 
@@ -131,11 +148,16 @@ bool BSTree::RecursiveInsert(Node* current, Account* insert)
 	{
 		if (current->left_ == NULL) // found the place
 		{
-
+			Node* insert_in_tree = new Node();
+			insert_in_tree->account_ptr_ = insert;
+			insert_in_tree->left_ = NULL;
+			insert_in_tree->right_ = NULL;
+			current->left_ = insert_in_tree;
+			return true;
 		}
 		else
 		{
-
+			return RecursiveInsert(current->left_, insert);
 		}
 	}
 
@@ -146,5 +168,34 @@ bool BSTree::RecursiveInsert(Node* current, Account* insert)
 
 	return false;
 }
+
+void BSTree::RecursivePrint(Node* current) const
+{
+	if ((current->right_ != NULL) && (current->left_ != NULL))
+	{
+		RecursivePrint(current->right_);
+		cout << *(current->account_ptr_) << endl; // TODO: do I need this?
+		RecursivePrint(current->left_);
+	}
+
+	else if (current->left_ != NULL)
+	{
+		cout << *(current->account_ptr_) << endl;
+		RecursivePrint(current->left_);
+	}
+
+	else if (current->right_ != NULL)
+	{
+		cout << *(current->account_ptr_) << endl;
+		RecursivePrint(current->right_);
+	}
+
+	else
+	{
+		cout << *(current->account_ptr_) << endl;
+	}
+}
+
+
 
 #endif
