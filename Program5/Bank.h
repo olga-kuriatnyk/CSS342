@@ -10,14 +10,14 @@
 
 class Bank
 {
-    //friend ostream& operator<<(ostream& out, const Bank& bank); 
+    //friend ostream& operator<<(ostream& out, const Bank& bank); //Display 
 
 public:
     Bank();
-    void ReadTransactionsFromTheFile();
-    void ProcesTransactions(); // TODO: implement 'T', 'H'
 
-    //operator overload << //Display 
+    void ReadTransactionsFromTheFile();
+    void ProcesTransactions();
+    void Display() const;
 
 private:
     queue<Transaction> transactions_list;
