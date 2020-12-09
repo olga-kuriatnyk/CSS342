@@ -14,12 +14,12 @@ int Fund::getBalance() const
 	return balance_;
 }
 
-void Fund::depositAmount(int add_amount)
+void Fund::depositAmountFund(int add_amount)
 {
 	balance_ += add_amount;
 }
 
-bool Fund::withdrawAmount(int withdraw_amount)
+bool Fund::withdrawAmountFund(int withdraw_amount)
 {
 	if (balanceCheck(withdraw_amount))
 	{
@@ -30,23 +30,43 @@ bool Fund::withdrawAmount(int withdraw_amount)
 	return false;
 }
 
-void Fund::recordTransaction(Transaction transaction)
+void Fund::recordFundTransaction(Transaction transaction)
 {
 	history.push_back(transaction);
 }
 
-void Fund::printHistoryOfFund()
+void Fund::printHistoryOfFund() const
 {
 	for (int i = 0; i < history.size(); i++)
 	{
-		cout << history[i] << endl;
-		//cout << " " << history[i]; 
+		cout << "  " << history[i];
+	}
+}
+
+void Fund::printHistory() const
+{
+	if (history.size() == 0)
+	{
+		return;
+	}
+	else
+	{
+		cout << fund_name_ << ": $" << balance_ << endl;
+		for (int i = 0; i < history.size(); i++)
+		{
+			cout << "  " << history[i];
+		}
 	}
 }
 
 void Fund::setFundName(string fund_name)
 {
 	this->fund_name_ = fund_name;
+}
+
+string Fund::getFundName() const
+{
+	return fund_name_;
 }
 
 bool Fund::balanceCheck(int withdraw_amount)
