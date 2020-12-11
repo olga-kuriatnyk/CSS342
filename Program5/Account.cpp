@@ -1,3 +1,10 @@
+//  Olga Kuraitnyk
+//  CSS342A
+//  12/10/2020
+//  Program 5: The Jolly Banker
+//  Account.cpp
+//  The implementation for Account Class. 
+
 #include "Account.h"
 
 Account::Account()
@@ -16,7 +23,7 @@ Account::Account(string first_name, string last_name, int account_id)
 	this->last_name_ = last_name;
 	this->account_id_ = account_id;
 	string fundNames[] = { "Money Market", "Prime Money Market","Long-Term Bond", "Short-Term Bond",
-		"500 Index Fund", "Capital Value Fund","Growth Equity Fund", "Growth Index Fund","Value Fund", 
+		"500 Index Fund", "Capital Value Fund","Growth Equity Fund", "Growth Index Fund","Value Fund",
 		"Value Stock Index" };
 	for (int i = 0; i < 10; i < i++)
 	{
@@ -28,13 +35,14 @@ Account::~Account()
 {
 }
 
+// call the Fund clas function depositAmountFund() for specified fund
 void Account::depositAmount(int fund_id, int amount)
 {
-	funds[fund_id].depositAmountFund(amount);
+		funds[fund_id].depositAmountFund(amount);
 }
 
-// The withdrawAmount function is used to withdraw of money.
-// First it checks if the fund_id is any of the special funds (index 0-3)
+// The withdrawAmoun()t function is used for withdraw of money.
+// First it checks if the fund_id is any of the special funds (index 0-3).
 // If they are not, they proceed to trying to subtract from the balance available. 
 // If they are part of the speical linked index the fucnction first checks if it can widthdrwal from the primary fund index.
 // If it cannot, it then checks if the amount subtracted is less than the total of the combined of two funds.
@@ -49,34 +57,44 @@ bool Account::withdrawAmount(int fund_id, int amount, Transaction trns)
 			funds[fund_id].recordFundTransaction(trns);
 			return true;
 		}
+
 		else if ((funds[MONEY_MARKET].getBalance() + funds[PRIME_MONEY_MARKET].getBalance()) >= amount)
 		{
 
-			if (fund_id == MONEY_MARKET)
+			if ((fund_id == MONEY_MARKET) && (trns.getTransferFundID() != PRIME_MONEY_MARKET))
 			{
 				withdrawFromSimilarAccoutns(MONEY_MARKET, PRIME_MONEY_MARKET, amount);
 				return true;
 			}
-			else
+			else if ((fund_id == PRIME_MONEY_MARKET) && (trns.getTransferFundID() != MONEY_MARKET))
 			{
 				withdrawFromSimilarAccoutns(PRIME_MONEY_MARKET, MONEY_MARKET, amount);
 				return true;
 			}
+
 		}
+
+		else if ((!funds[fund_id].balanceCheck(amount)) && ((trns.getTransferFundID() == PRIME_MONEY_MARKET) || (trns.getTransferFundID() == MONEY_MARKET)))
+		{
+			faild_withdraw(fund_id, amount, trns);
+			return false;
+		}
+
 		else // two funds together have not enough money to withdraw
 		{
 			if (fund_id == MONEY_MARKET)
 			{
-				faild_withdraw(MONEY_MARKET, amount);
+				faild_withdraw(MONEY_MARKET, amount, trns);
 				return false;
 			}
 			else
 			{
-				faild_withdraw(PRIME_MONEY_MARKET, amount);
+				faild_withdraw(PRIME_MONEY_MARKET, amount, trns);
 				return false;
 			}
 		}
 	}
+
 	else if (fund_id == LONG_TERM_BOND || fund_id == SHORT_TERM_BOND)
 	{
 		if (funds[fund_id].balanceCheck(amount))
@@ -85,6 +103,13 @@ bool Account::withdrawAmount(int fund_id, int amount, Transaction trns)
 			funds[fund_id].recordFundTransaction(trns);
 			return true;
 		}
+
+		else if ((!funds[fund_id].balanceCheck(amount)) && ((trns.getTransferFundID() == LONG_TERM_BOND) || (trns.getTransferFundID() == SHORT_TERM_BOND)))
+		{
+			faild_withdraw(fund_id, amount, trns);
+			return false;
+		}
+
 		else if ((funds[LONG_TERM_BOND].getBalance() + funds[SHORT_TERM_BOND].getBalance()) >= amount)
 		{
 			if (fund_id == LONG_TERM_BOND)
@@ -102,12 +127,14 @@ bool Account::withdrawAmount(int fund_id, int amount, Transaction trns)
 		{
 			if (fund_id == LONG_TERM_BOND)
 			{
-				faild_withdraw(LONG_TERM_BOND, amount);
+				faild_withdraw(LONG_TERM_BOND, amount, trns);
+
 				return false;
 			}
 			else
 			{
-				faild_withdraw(SHORT_TERM_BOND, amount);
+				faild_withdraw(SHORT_TERM_BOND, amount, trns);
+
 				return false;
 			}
 		}
@@ -122,7 +149,8 @@ bool Account::withdrawAmount(int fund_id, int amount, Transaction trns)
 		}
 		else
 		{
-			faild_withdraw(fund_id, amount);
+			//faild_withdraw(fund_id, amount);
+			faild_withdraw(fund_id, amount, trns);
 			return false;
 		}
 	}
@@ -131,7 +159,7 @@ bool Account::withdrawAmount(int fund_id, int amount, Transaction trns)
 }
 
 // withdrawFromSimilarAccoutn() function is used for the withdrawl if two linked accounts 
-void Account::withdrawFromSimilarAccoutns(int primary_fund, int secondary_fund, int amount) //TODO: implement
+void Account::withdrawFromSimilarAccoutns(int primary_fund, int secondary_fund, int amount) 
 {
 	int available_balance = funds[primary_fund].getBalance();
 	funds[primary_fund].withdrawAmountFund(available_balance);
@@ -145,27 +173,45 @@ void Account::withdrawFromSimilarAccoutns(int primary_fund, int secondary_fund, 
 	funds[secondary_fund].recordFundTransaction(trns2);
 }
 
-void Account::faild_withdraw(int fund, int amount)
-{
-	cout << "ERROR: Not Enough Funds to withdraw " << amount << " from " << getFirstName() << " " << getLastName() << " " << getFundName(fund) << endl;
-	Transaction trns('W', getAccountID(), fund, amount, "(Failed)"); // failed transactoin for the record
-	funds[fund].recordFundTransaction(trns);
+// function that prints the right Error message and add failed transaction to the record
+void Account::faild_withdraw(int fund, int amount, Transaction trns)
+{ 
+	if (trns.getTransactionType() == 'T')
+	{
+		cerr << "ERROR: Not Enought Funds to Transer " << amount << " from " << getAccountID() << fund << " to " << trns.getTransferAccountID() << trns.getTransferFundID() << endl;
+		
+		Transaction trns('T', getAccountID(), fund, amount, trns.getTransferAccountID(), trns.getTransferFundID(), "(Failed)");
+		
+		funds[fund].recordFundTransaction(trns);
+		funds[trns.getTransferFundID()].recordFundTransaction(trns);
+	}
+	else if (trns.getTransactionType() == 'W')
+	{
+		cerr << "ERROR: Not Enough Funds to withdraw " << amount << " from " << getFirstName() << " " << getLastName() << " " << getFundName(fund) << endl;
+		
+		Transaction trns('W', getAccountID(), fund, amount, "(Failed)"); // failed transactoin for the record
+		
+		funds[fund].recordFundTransaction(trns);
+	}
 }
+
 
 void Account::recordTransaction(Transaction trns, int fund_id)
 {
 	funds[fund_id].recordFundTransaction(trns);
 }
 
+// Print History for All Funds in the Account 
 void Account::printAccountHistory() const
 {
 	cout << "Transaction History for " << first_name_ << " " << last_name_ << " by fund." << endl;
 	for (int i = 0; i < FUND_MAX; i++)
-	{ 
-			funds[i].printHistory();
+	{
+		funds[i].printHistory();
 	}
 }
 
+// Print History of a single Fund
 void Account::printFundHistory(int fund_id) const
 {
 	cout << "Transaction History for " << first_name_ << " " << last_name_ << " " << getFundName(fund_id) << ": $" << getBalance(fund_id) << endl;
@@ -205,20 +251,6 @@ void Account::setFundID(int fund_id)
 string Account::getFundName(int fund_id) const
 {
 	return funds[fund_id].getFundName();
-}
-
-bool Account::operator>(const Account& account) const
-{
-	if (account_id_ > account.account_id_)
-	{
-		return true;
-	}
-	return false;
-}
-
-bool Account::operator<(const Account& account) const
-{
-	return !(*this > account);
 }
 
 ostream& operator<<(ostream& out, Account& account)
