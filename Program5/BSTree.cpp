@@ -1,3 +1,10 @@
+//  Olga Kuraitnyk
+//  CSS342A
+//  12/10/2020
+//  Program 5: The Jolly Banker
+//  BSTree.cpp
+//  The implementation for BSTree Class. 
+
 #ifndef BSTREE_CPP_
 #define BSRTREE_CPP_
 
@@ -8,17 +15,24 @@ BSTree::BSTree()
 	root_ = NULL;
 }
 
+BSTree::BSTree(const BSTree& rhs)
+{
+	root_ = nullptr;
+	*this = rhs;
+}
+
 BSTree::~BSTree()
 {
 	Empty();
 }
 
+// Insert() finds the right place for the Node and insers it in the tree
 bool BSTree::Insert(Account* account_ptr)
 {
 	int insert_account_id = account_ptr->getAccountID();
+
 	if (insert_account_id < 1000 || insert_account_id > 9999) // account_id is not valid
 	{
-		cout << "ERROR: Account Number Not Valid" << endl;
 		return false;
 	}
 
@@ -35,11 +49,11 @@ bool BSTree::Insert(Account* account_ptr)
 	{
 		Node* current = root_;
 		RecursiveInsert(current, account_ptr); // finds the right plane for the Node
-
 	}
 	return false;
 }
 
+// Retrive return true if the Account exists in the tree
 bool BSTree::Retrieve(const int& account_id, Account*& account_ptr) const
 {
 	Node* current = root_;
@@ -73,10 +87,11 @@ void BSTree::Display() const
 		cout << "ERROR: ACCOUNT LIST IS EMPTY" << endl;
 		return;
 	}
+
 	RecursivePrint(root_);
 }
 
-void BSTree::Empty() // TODO: test
+void BSTree::Empty() 
 {
 	delete root_;
 	root_ = NULL;
@@ -84,7 +99,8 @@ void BSTree::Empty() // TODO: test
 
 bool BSTree::is_empty() const
 {
-	if (root_->left_ == NULL && root_->right_ == NULL)
+//	if (root_->left_ == NULL && root_->right_ == NULL)
+	if (root_ == NULL)
 	{
 		return true;
 	}
@@ -95,7 +111,13 @@ bool BSTree::is_empty() const
 // if the account_is already opent print the Error message 
 bool BSTree::RecursiveInsert(Node* current, Account* insert)
 {
-	if (insert->getAccountID() > current->account_ptr_->getAccountID())
+	if (insert->getAccountID() == current->account_ptr_->getAccountID())
+	{
+		cout << "ERROR: Account " << insert->getAccountID() << " is already open. Transaction refused." << endl;
+		return false;
+	}
+
+		if (insert->getAccountID() > current->account_ptr_->getAccountID())
 	{
 		if (current->right_ == NULL) // found the place
 		{
@@ -129,11 +151,6 @@ bool BSTree::RecursiveInsert(Node* current, Account* insert)
 		}
 	}
 
-	else // insert->getAccountID() == current->account_ptr_->getAccountID()
-	{
-		cout << "ERROR: Account " << insert->getAccountID() << " is already open. Transaction refused." << endl;
-	}
-
 	return false;
 }
 
@@ -142,7 +159,7 @@ void BSTree::RecursivePrint(Node* current) const
 	if ((current->right_ != NULL) && (current->left_ != NULL))
 	{
 		RecursivePrint(current->right_);
-		cout << *(current->account_ptr_) << endl; // TODO: do I need this?
+		cout << *(current->account_ptr_) << endl;
 		RecursivePrint(current->left_);
 	}
 
@@ -164,6 +181,39 @@ void BSTree::RecursivePrint(Node* current) const
 	}
 }
 
+BSTree& BSTree::operator=(const BSTree& rhs)
+{
+	//make sure that not assigning to itself 
+	if (this == &rhs)
+	{
+		return *this;
+	}
 
+	if (rhs.root_ == nullptr)
+	{
+		this->Empty();
+		return *this;
+	}
+
+	if (!this->is_empty())
+	{
+		this->Empty();
+	}
+	Node* current = rhs.root_;
+	preOrderRetrive(current);
+
+	return *this;
+
+}
+// recursive function for operator=
+void BSTree::preOrderRetrive(Node* current)
+{
+	if (current != nullptr)
+	{
+		this->Insert(current->account_ptr_);
+		preOrderRetrive(current->left_);
+		preOrderRetrive(current->right_);
+	}
+}
 
 #endif
