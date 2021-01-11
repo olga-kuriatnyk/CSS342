@@ -1,3 +1,10 @@
+//  Olga Kuraitnyk
+//  CSS342A
+//  12/10/2020
+//  Program 5: The Jolly Banker
+//  Transaction.h
+//  Interface for Transaction Class. Class stors all the information about each transaction.
+
 #pragma once
 #include <string>
 #include <iostream>
@@ -5,20 +12,25 @@ using namespace std;
 
 class Transaction
 {
+	//	Operator overload
 	friend ostream& operator<<(ostream& out, const Transaction& trns); 
 
 public:
+	//  Constructor-Desctuctor
 	Transaction();
 	~Transaction();
+
+	//Copy Constructors 
 	Transaction(char trns_type, string last_name, string first_name, int account_id);  //for Open transactions
 	Transaction(char trns_type, int account_id, int fund_id, int amount);  //for Deposit and Withdraw
 	Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id); //for Transfer
 	Transaction(char trns_type, int account_id);  //for account History
 
-	//These Construtors create a transaction that failed to process
+	//These Copy Construtors create a transaction that failed to process
 	Transaction(char trns_type, int account_id, int fund_id, int amount, int transfer_account_id, int transfer_fund_id, string fail);
 	Transaction(char trns_type, int account_id, int fund_id, int amount, string fail);
 
+	//  Getter-Setters
 	char getTransactionType() const;
 	string getFirstName() const;
 	string getLastName() const;
@@ -27,6 +39,7 @@ public:
 	int getTransferAccountID() const;
 	int getTransferFundID() const;
 	int getAmount() const;
+	string getFailed() const;
 	bool isFailed() const; 
 
 private:
